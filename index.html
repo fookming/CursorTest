@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard AI - Autonomous Threat Detection & Response</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+        
+        nav a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a1a1a;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover {
+            color: #1a1a1a;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        section {
+            padding: 6rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            margin-top: 60px;
+            text-align: center;
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #666;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1.5px solid #1a1a1a;
+            color: #1a1a1a;
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            background: #f9f9f9;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: #bbb;
+            background: #fafafa;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-card h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .feature-card p {
+            color: #666;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+        
+        .usecases {
+            background: white;
+        }
+        
+        .usecases h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .usecase-item {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #1a1a1a;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .usecase-item:hover {
+            transform: translateX(8px);
+            border-color: #555;
+            background: #fafafa;
+        }
+        
+        .usecase-item h3 {
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .usecase-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .pricing {
+            background: #f9f9f9;
+        }
+        
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border: 1.5px solid #e0e0e0;
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: #1a1a1a;
+            background: #1a1a1a;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            border-color: #555;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .pricing-card.featured h3 {
+            color: white;
+        }
+        
+        .price {
+            font-size: 2.8rem;
+            color: #1a1a1a;
+            margin: 1.5rem 0;
+            font-weight: 700;
+        }
+        
+        .pricing-card.featured .price {
+            color: white;
+        }
+        
+        .pricing-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.8rem 0;
+        }
+        
+        .pricing-card.featured p {
+            color: #ddd;
+        }
+        
+        footer {
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 3rem;
+            text-align: center;
+            color: #999;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features h2, .usecases h2, .pricing h2 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🛡️ CyberGuard AI</div>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#usecases">Use Cases</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <button class="btn-primary">Get Started</button>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Autonomous AI Threat Detection & Response</h1>
+        <p>Deploy intelligent agents that detect, investigate, and neutralize cyber threats in real-time</p>
+        <div class="cta-buttons">
+            <button class="btn-primary">Start Free Trial</button>
+            <button class="btn-secondary">Watch Demo</button>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <h2>Agentic AI for Modern Cybersecurity</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🤖 Autonomous Agents</h3>
+                <p>Multi-agent systems that independently investigate threats, correlate data, and make intelligent decisions without human intervention.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Real-Time Response</h3>
+                <p>Agents automatically respond to threats in milliseconds, isolating compromised systems and blocking malicious actors instantly.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 Advanced Analysis</h3>
+                <p>Deep behavioral analysis using machine learning to detect zero-day exploits and advanced persistent threats.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Unified Dashboard</h3>
+                <p>Monitor all agent activities and threat responses from a single, intuitive control center with real-time metrics.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔗 Multi-Layer Integration</h3>
+                <p>Seamlessly integrates with your existing security stack: firewalls, SIEMs, EDR, and cloud platforms.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📚 Continuous Learning</h3>
+                <p>Agents learn from every threat encounter, improving detection accuracy and response strategies over time.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="usecases" class="usecases">
+        <h2>Real-World Applications</h2>
+        <div class="usecase-item">
+            <h3>Enterprise Network Defense</h3>
+            <p>Deploy agents across your infrastructure to continuously monitor traffic, detect intrusions, and respond before damage occurs.</p>
+        </div>
+        <div class="usecase-item">
+            <h3>Cloud Security Automation</h3>
+            <p>Agents autonomously manage cloud access, detect misconfigurations, and enforce compliance policies across AWS, Azure, and GCP.</p>
+        </div>
+        <div class="usecase-item">
+            <h3>Incident Response at Scale</h3>
+            <p>AI agents handle initial triage, forensics, and containment of security incidents while your team focuses on strategic response.</p>
+        </div>
+        <div class="usecase-item">
+            <h3>Threat Hunting & Intelligence</h3>
+            <p>Autonomous agents hunt for indicators of compromise and provide actionable intelligence on emerging threats in your environment.</p>
+        </div>
+    </section>
+    
+    <section id="pricing" class="pricing">
+        <h2>Simple, Transparent Pricing</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Startup</h3>
+                <div class="price">$499/mo</div>
+                <p>Up to 5 agents</p>
+                <p>1 integration</p>
+                <p>Email support</p>
+                <button class="btn-secondary">Choose Plan</button>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Enterprise</h3>
+                <div class="price">$2,999/mo</div>
+                <p>Unlimited agents</p>
+                <p>All integrations</p>
+                <p>24/7 Priority support</p>
+                <button class="btn-primary">Choose Plan</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Custom</h3>
+                <div class="price">Contact Sales</div>
+                <p>Dedicated infrastructure</p>
+                <p>Custom agents</p>
+                <p>On-premises deployment</p>
+                <button class="btn-secondary">Contact Us</button>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2026-2027 CyberGuard AI. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </footer>
+</body>
+</html>
